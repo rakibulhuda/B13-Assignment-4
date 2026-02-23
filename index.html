@@ -6,67 +6,91 @@
     <title>Job Application Tracker</title>
     <link rel="icon" href="./assets/job-seeking.png" type="image/x-icon">
     <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="./css/style.css">
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-    <style>
-        body {
-            background-color: #f8fafc;
-        }
-    </style>
 </head>
 <body class="py-6 px-4 md:py-10 md:px-6">
 
-    <!-- Tracker Section -->
-    <section class="max-w-full md:max-w-[75%] dashboard mx-auto py-8 md:py-8">
-        <h1 class="text-2xl md:text-3xl font-bold mb-4 md:mb-5">Job Application Tracker</h1>
-        
-        <div class="flex flex-col sm:flex-row gap-4 md:gap-5 justify-center">
-            <!-- Total Card -->
-            <div class="w-full sm:w-auto sm:flex-1 min-w-[200px] h-auto sm:h-[97px] pl-4 sm:pl-5 py-4 sm:py-5 bg-white border border-gray-300 shadow-md shadow-gray-300 rounded-lg">
-                <p class="text-[14px] text-gray-600">Total</p>
-                <p class="text-[24px] md:text-[28px] font-bold" id="totalJobCount">0</p>
-            </div>
-            
-            <!-- Interview Card -->
-            <div class="w-full sm:w-auto sm:flex-1 min-w-[200px] h-auto sm:h-[97px] pl-4 sm:pl-5 py-4 sm:py-5 bg-white border border-gray-300 shadow-md shadow-gray-300 rounded-lg">
-                <p class="text-[14px] text-gray-600">Interview</p>
-                <p class="text-[24px] md:text-[28px] font-bold text-green-500" id="interviewedCount">0</p>
-            </div>
-            
-            <!-- Rejected Card -->
-            <div class="w-full sm:w-auto sm:flex-1 min-w-[200px] h-auto sm:h-[97px] pl-4 sm:pl-5 py-4 sm:py-5 bg-white border border-gray-300 shadow-md shadow-gray-300 rounded-lg">
-                <p class="text-[14px] text-gray-600">Rejected</p>
-                <p class="text-[24px] md:text-[28px] font-bold text-red-500" id="rejectedCount">0</p>
-            </div>
-        </div>
-    </section>
+<!-- Tracker Section -->
+<section class="max-w-full md:max-w-[75%] dashboard mx-auto py-8 md:py-8">
+    <h1 class="text-2xl md:text-3xl font-bold mb-4 md:mb-5">Job Application Tracker</h1>
 
-    <!-- Divider Line -->
-    <hr class="max-w-[75%] mx-auto my-8 border-t border-gray-300" />
-
-    <!-- Main Section -->
-    <section class="max-w-full md:max-w-[75%] mx-auto mt-8 md:mt-10 px-2">
-        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
-            <h4 class="text-[20px] font-semibold">Available Jobs</h4>
-            <h4 class="text-[16px] text-gray-600" id="availableJobsCount">0 jobs</h4>
+    <div class="flex flex-col sm:flex-row gap-4 md:gap-5 justify-center">
+        <!-- Total Card -->
+        <div class="w-full sm:w-auto sm:flex-1 min-w-[200px] h-auto sm:h-[97px] pl-4 sm:pl-5 py-4 sm:py-5 bg-white border border-gray-300 shadow-md shadow-gray-300 rounded-lg">
+            <p class="text-[14px] text-gray-600">Total</p>
+            <p class="text-[24px] md:text-[28px] font-bold" id="totalJobCount">0</p>
         </div>
-        
-        <div class="mt-4">
-            <div role="listOfTabs" class="tabs gap-2 flex flex-wrap sm:flex-row">
-                <a role="tab" class="tab tab-active bg-[#3b82f6] border-gray-300 text-white border rounded-md w-full sm:w-24 tabs-sm text-center" id="allTab">All</a>
-                <a role="tab" class="tab border bg-white border-gray-300 rounded-md w-full sm:w-24 tabs-sm text-center" id="interviewTab">Interview</a>
-                <a role="tab" class="tab border bg-white border-gray-300 rounded-md w-full sm:w-24 tabs-sm text-center" id="rejectedTab">Rejected</a>
-            </div>
-        </div>
-    </section>
 
+        <!-- Interview Card -->
+        <div class="w-full sm:w-auto sm:flex-1 min-w-[200px] h-auto sm:h-[97px] pl-4 sm:pl-5 py-4 sm:py-5 bg-white border border-gray-300 shadow-md shadow-gray-300 rounded-lg">
+            <p class="text-[14px] text-gray-600">Interview</p>
+            <p class="text-[24px] md:text-[28px] font-bold text-green-500" id="interviewedCount">0</p>
+        </div>
+
+        <!-- Rejected Card -->
+        <div class="w-full sm:w-auto sm:flex-1 min-w-[200px] h-auto sm:h-[97px] pl-4 sm:pl-5 py-4 sm:py-5 bg-white border border-gray-300 shadow-md shadow-gray-300 rounded-lg">
+            <p class="text-[14px] text-gray-600">Rejected</p>
+            <p class="text-[24px] md:text-[28px] font-bold text-red-500" id="rejectedCount">0</p>
+        </div>
+    </div>
+</section>
+
+<!-- Divider Line -->
+<hr class="max-w-[75%] mx-auto my-8 border-t border-gray-300" />
+
+<!-- Main Section -->
+<section class="max-w-full md:max-w-[75%] mx-auto mt-8 md:mt-10 px-2">
+    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+        <h4 class="text-[20px] font-semibold">Available Jobs</h4>
+        <!-- Job Count -->
+        <h4 class="text-[16px] text-gray-600" id="availableJobsCount">0 jobs</h4>
+    </div>
+
+    <div class="mt-4">
+        <div role="listOfTabs" class="tabs gap-2 flex flex-wrap sm:flex-row">
+            <!-- Tabs -->
+            <a role="tab" class="tab tab-active bg-[#3b82f6] border-gray-300 text-white border rounded-md w-full sm:w-24 tabs-sm text-center" id="allTab">All</a>
+            <a role="tab" class="tab border bg-white border-gray-300 rounded-md w-full sm:w-24 tabs-sm text-center" id="interviewTab">Interview</a>
+            <a role="tab" class="tab border bg-white border-gray-300 rounded-md w-full sm:w-24 tabs-sm text-center" id="rejectedTab">Rejected</a>
+        </div>
+    </div>
+</section>
+
+<!--Content Section-->
+<section class="max-w-[75%] mx-auto mt-4" id="jobPostParent">
     <!-- Empty State Section-->
-    <section class="max-w-[75%] mx-auto mt-4" id="jobPostParent">  
-    <div id="emptyStateID" class="flex flex-col items-center justify-center py-16 border bg-white border-gray-300 rounded-md">
+    <div id="emptyState" class="flex flex-col items-center justify-center py-16 border bg-white border-gray-300 rounded-md">
         <img src="./assets/jobs.png" alt="No jobs" class="w-24 h-24 mb-4 opacity-60">
         <h3 class="text-2xl font-semibold text-gray-700 mb-2">No jobs available</h3>
         <p class="text-gray-500">Check back soon for new job opportunities</p>
     </div>
-    </section>
-    <script src="./scripts/tracker.js"></script>
+
+    <!-- Template Card-->
+    <div class="border border-gray-200 rounded-md p-4 mb-4 shadow-md shadow-gray-300" id="jobPosts" style="display: none">
+        <div class="flex justify-between items-start mb-4">
+            <h4 class="capitalize font-medium text-lg">Template</h4>
+            <button class="btn btn-ghost btn-sm btn-circle text-gray-500 hover:text-red-500 delete-btn" title="Delete">
+                <img src="./assets/trash.png" alt="Delete" class="w-4 h-4 opacity-80">
+            </button>
+        </div>
+
+        <!-- paragraphs[0] -> position -->
+        <p class="text-gray-500 text-base mb-4"></p>
+        <!-- paragraphs[1] -> details -->
+        <p class="text-gray-500 text-sm mb-4"></p>
+        <!-- paragraphs[2] -> description -->
+        <p class="text-gray-500 text-sm mb-4"></p>
+
+        <!-- status-->
+        <span class="bg-gray-200 text-gray-800 px-2 py-1 rounded-md text-xs mb-4 inline-block"></span>
+
+        <div class="mt-4 flex md:justify-start md:items-center gap-4 flex-col md:flex-row">
+            <button class="btn btn-outline btn-success">Interview</button>
+            <button class="btn btn-outline btn-error">Rejected</button>
+        </div>
+    </div>
+</section>
+<script src="./scripts/tracker.js"></script>
 </body>
 </html>

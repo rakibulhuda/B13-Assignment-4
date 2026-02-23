@@ -1,0 +1,18 @@
+body {
+    background-color: #f8fafc;
+}
+#emptyState {
+    display: none;
+    z-index: 10;
+}
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+#emptyState[style*="display: flex"] {
+    animation: fadeIn 0.3s ease-out;
+}
+/* Smooth tab transition */
+.tab {
+    transition: all 0.2s ease-in-out;
+}
