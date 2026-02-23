@@ -8,30 +8,60 @@
     <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <style>
-        body{
+        body {
             background-color: #f8fafc;
         }
     </style>
 </head>
-<body>
-<!--Tracker Section-->
-<section class="max-w-[75%] mx-auto w-[1600px] h-[2819px] py-15">
-    <h1 class="text-3xl font-bold mb-5">Job Application Tracker</h1>
-    <div class="flex flex-col md:flex-row gap-5 ">
-        <div class="w-[360px] h-[97px] pl-5 py-5 bg-white border-gray-300 shadow-gray-300 shadow-md">
-            <p class="text-[14px]">Total</p>
-            <p class="text-[24px] font-bold" id="totalJobCount"></p>
+<body class="py-6 px-4 md:py-10 md:px-6">
+
+    <!-- Tracker Section -->
+    <section class="max-w-full md:max-w-[75%] dashboard mx-auto py-8 md:py-15">
+        <h1 class="text-2xl md:text-3xl font-bold mb-4 md:mb-5">Job Application Tracker</h1>
+        
+        <div class="flex flex-col sm:flex-row gap-4 md:gap-5 justify-center">
+            <!-- Total Card -->
+            <div class="w-full sm:w-auto sm:flex-1 min-w-[200px] h-auto sm:h-[97px] pl-4 sm:pl-5 py-4 sm:py-5 bg-white border border-gray-300 shadow-md shadow-gray-300 rounded-lg">
+                <p class="text-[14px] text-gray-600">Total</p>
+                <p class="text-[24px] md:text-[28px] font-bold" id="totalJobCount">0</p>
+            </div>
+            
+            <!-- Interview Card -->
+            <div class="w-full sm:w-auto sm:flex-1 min-w-[200px] h-auto sm:h-[97px] pl-4 sm:pl-5 py-4 sm:py-5 bg-white border border-gray-300 shadow-md shadow-gray-300 rounded-lg">
+                <p class="text-[14px] text-gray-600">Interview</p>
+                <p class="text-[24px] md:text-[28px] font-bold text-green-500" id="interviewedCount">0</p>
+            </div>
+            
+            <!-- Rejected Card -->
+            <div class="w-full sm:w-auto sm:flex-1 min-w-[200px] h-auto sm:h-[97px] pl-4 sm:pl-5 py-4 sm:py-5 bg-white border border-gray-300 shadow-md shadow-gray-300 rounded-lg">
+                <p class="text-[14px] text-gray-600">Rejected</p>
+                <p class="text-[24px] md:text-[28px] font-bold text-red-500" id="rejectedCount">0</p>
+            </div>
         </div>
-        <div class="w-[360px] h-[97px] pl-5 py-5 bg-white border-gray-300 shadow-gray-300 shadow-md">
-            <p class="text-[14px]">Interview</p>
-            <p class="text-[24px] font-bold text-green-500" id="interviewedCount"></p>
+    </section>
+
+    <!-- Main Section -->
+    <section class="max-w-full md:max-w-[75%] mx-auto mt-8 md:mt-10 px-2">
+        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+            <h4 class="text-xl font-semibold">Available Jobs</h4>
+            <h4 class="text-sm text-gray-600" id="availableJobsCount">0 jobs</h4>
         </div>
-        <div class="w-[360px] h-[97px] pl-5 py-5 bg-white border-gray-300 shadow-gray-300 shadow-md">
-            <p class="text-[14px]">Rejected</p>
-            <p class="text-[24px] font-bold text-red-500" id="rejectedCount"></p>
+        
+        <div class="mt-4">
+            <div role="listOfTabs" class="tabs gap-2 flex flex-wrap sm:flex-row">
+                <a role="tab" 
+                   class="tab tab-active bg-[#3b82f6] border-gray-300 text-white border rounded-md w-full sm:w-24 tabs-sm text-center" 
+                   id="allTab">All</a>
+                <a role="tab" 
+                   class="tab border bg-white border-gray-300 rounded-md w-full sm:w-24 tabs-sm text-center" 
+                   id="interviewTab">Interview</a>
+                <a role="tab" 
+                   class="tab border bg-white border-gray-300 rounded-md w-full sm:w-24 tabs-sm text-center" 
+                   id="rejectedTab">Rejected</a>
+            </div>
         </div>
-    </div>
-</section>
-<script src="./scripts/tracker.js"></script>
+    </section>
+
+    <script src="./scripts/tracker.js"></script>
 </body>
 </html>

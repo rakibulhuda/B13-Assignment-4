@@ -6,3 +6,4 @@ interviewedCount.innerText = 0;
 
 let rejectedCount = document.getElementById("rejectedCount");
 rejectedCount.innerText = 0;
+
