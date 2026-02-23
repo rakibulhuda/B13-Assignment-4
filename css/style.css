@@ -16,3 +16,82 @@ body {
 .tab {
     transition: all 0.2s ease-in-out;
 }
+.card-status-change {
+    position: relative;
+    animation: pulseStatus 0.4s ease-out;
+    transform: translateX(0);
+}
+
+/* Left border indicator */
+.card-status-change::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 4px;
+    border-radius: 4px 0 0 4px;
+    animation: slideInLeft 0.3s ease-out;
+}
+
+/* Green variant for Interview */
+.card-status-change.interview::before {
+    background: linear-gradient(180deg, #22c55e, #16a34a);
+    box-shadow: 0 0 12px rgba(34, 197, 94, 0.5);
+}
+
+/* Red variant for Rejected */
+.card-status-change.rejected::before {
+    background: linear-gradient(180deg, #ef4444, #dc2626);
+    box-shadow: 0 0 12px rgba(239, 68, 68, 0.5);
+}
+
+/* Subtle colored shadow glow */
+.card-status-change.interview {
+    box-shadow: 0 4px 14px rgba(34, 197, 94, 0.25), 0 0 0 1px rgba(34, 197, 94, 0.1) !important;
+}
+
+.card-status-change.rejected {
+    box-shadow: 0 4px 14px rgba(239, 68, 68, 0.25), 0 0 0 1px rgba(239, 68, 68, 0.1) !important;
+}
+
+/* Keyframe animations */
+@keyframes pulseStatus {
+    0% {
+        transform: scale(1);
+        box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    }
+    50% {
+        transform: scale(1.01);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+@keyframes slideInLeft {
+    0% {
+        height: 0;
+        opacity: 0;
+    }
+    100% {
+        height: 100%;
+        opacity: 1;
+    }
+}
+
+/* Ensure cards have relative positioning for ::before to work */
+#jobPostParent > div[id^="jobPosts"] {
+    position: relative;
+    overflow: hidden; /* Contains the left border */
+}
+
+/* Smooth transition for normal state */
+#jobPostParent > div[id^="jobPosts"] {
+    transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+#jobPostParent > div[id^="jobPosts"]:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.12) !important;
+}

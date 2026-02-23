@@ -212,7 +212,6 @@ function updateJobStatus(jobId, newStatus) {
         statusSpan.classList.add("bg-gray-200", "text-gray-800");
     }
 
-    // 🎬 TRIGGER ANIMATION
     triggerCardAnimation(card, newStatus);
 
     // Refresh counters
@@ -228,12 +227,10 @@ function updateJobStatus(jobId, newStatus) {
     filterJobs(activeTab);
 }
 
-// 🎬 New helper function: Trigger card animation
 function triggerCardAnimation(card, status) {
     // Remove any existing animation classes first
     card.classList.remove("card-status-change", "interview", "rejected");
 
-    // Force reflow to restart animation (magic trick ✨)
     void card.offsetWidth;
 
     // Add animation classes based on status
@@ -248,11 +245,11 @@ function triggerCardAnimation(card, status) {
 function updateCounters() {
     const totalCount = jobPosts.length;
     const interviewCount = jobPosts.filter(job => job.status === "INTERVIEW").length;
-    const rejectedCountValue = jobPosts.filter(job => job.status === "REJECTED").length; // ← Renamed to avoid shadowing
+    const rejectedCountValue = jobPosts.filter(job => job.status === "REJECTED").length;
 
     totalJobCount.innerText = totalCount;
     interviewedCount.innerText = interviewCount;
-    rejectedCount.innerText = rejectedCountValue; // ← Use renamed variable
+    rejectedCount.innerText = rejectedCountValue;
 }
 
 function deleteJob(jobId) {
