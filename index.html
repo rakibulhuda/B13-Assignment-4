@@ -16,7 +16,7 @@
 <body class="py-6 px-4 md:py-10 md:px-6">
 
     <!-- Tracker Section -->
-    <section class="max-w-full md:max-w-[75%] dashboard mx-auto py-8 md:py-15">
+    <section class="max-w-full md:max-w-[75%] dashboard mx-auto py-8 md:py-8">
         <h1 class="text-2xl md:text-3xl font-bold mb-4 md:mb-5">Job Application Tracker</h1>
         
         <div class="flex flex-col sm:flex-row gap-4 md:gap-5 justify-center">
@@ -40,28 +40,33 @@
         </div>
     </section>
 
+    <!-- Divider Line -->
+    <hr class="max-w-[75%] mx-auto my-8 border-t border-gray-300" />
+
     <!-- Main Section -->
     <section class="max-w-full md:max-w-[75%] mx-auto mt-8 md:mt-10 px-2">
         <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
-            <h4 class="text-xl font-semibold">Available Jobs</h4>
-            <h4 class="text-sm text-gray-600" id="availableJobsCount">0 jobs</h4>
+            <h4 class="text-[20px] font-semibold">Available Jobs</h4>
+            <h4 class="text-[16px] text-gray-600" id="availableJobsCount">0 jobs</h4>
         </div>
         
         <div class="mt-4">
             <div role="listOfTabs" class="tabs gap-2 flex flex-wrap sm:flex-row">
-                <a role="tab" 
-                   class="tab tab-active bg-[#3b82f6] border-gray-300 text-white border rounded-md w-full sm:w-24 tabs-sm text-center" 
-                   id="allTab">All</a>
-                <a role="tab" 
-                   class="tab border bg-white border-gray-300 rounded-md w-full sm:w-24 tabs-sm text-center" 
-                   id="interviewTab">Interview</a>
-                <a role="tab" 
-                   class="tab border bg-white border-gray-300 rounded-md w-full sm:w-24 tabs-sm text-center" 
-                   id="rejectedTab">Rejected</a>
+                <a role="tab" class="tab tab-active bg-[#3b82f6] border-gray-300 text-white border rounded-md w-full sm:w-24 tabs-sm text-center" id="allTab">All</a>
+                <a role="tab" class="tab border bg-white border-gray-300 rounded-md w-full sm:w-24 tabs-sm text-center" id="interviewTab">Interview</a>
+                <a role="tab" class="tab border bg-white border-gray-300 rounded-md w-full sm:w-24 tabs-sm text-center" id="rejectedTab">Rejected</a>
             </div>
         </div>
     </section>
 
+    <!-- Empty State Section-->
+    <section class="max-w-[75%] mx-auto mt-4" id="jobPostParent">  
+    <div id="emptyStateID" class="flex flex-col items-center justify-center py-16 border bg-white border-gray-300 rounded-md">
+        <img src="./assets/jobs.png" alt="No jobs" class="w-24 h-24 mb-4 opacity-60">
+        <h3 class="text-2xl font-semibold text-gray-700 mb-2">No jobs available</h3>
+        <p class="text-gray-500">Check back soon for new job opportunities</p>
+    </div>
+    </section>
     <script src="./scripts/tracker.js"></script>
 </body>
 </html>
