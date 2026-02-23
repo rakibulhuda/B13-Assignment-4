@@ -1,6 +1,3 @@
-// =============================
-// DOM Element References
-// =============================
 let totalJobCount = document.getElementById("totalJobCount");
 totalJobCount.innerText = 0;
 
@@ -131,3 +128,209 @@ rejectedTab.addEventListener("click", function () {
     makeTabActive(rejectedTab);
     filterJobs("REJECTED");
 });
+
+function makeTabActive(activeTab) {
+    const tabs = [allTab, interviewTab, rejectedTab];
+    const inactiveClasses = ["bg-white", "text-gray-700", "border-gray-300"];
+    const activeClasses = ["tab-active", "bg-[#3b82f6]", "text-white", "border-[#3b82f6]"];
+
+    tabs.forEach(tab => {
+        activeClasses.forEach(cls => tab.classList.remove(cls));
+        inactiveClasses.forEach(cls => tab.classList.add(cls));
+    });
+
+    // Activate clicked tab
+    inactiveClasses.forEach(cls => activeTab.classList.remove(cls));
+    activeClasses.forEach(cls => activeTab.classList.add(cls));
+}
+
+function filterJobs(status) {
+    const allCards = document.querySelectorAll("#jobPostParent > div[id^='jobPosts']");
+    const emptyState = document.getElementById("emptyState");
+    let visibleCount = 0;
+    let totalCount = 0;
+
+    allCards.forEach((card) => {
+        if (card.id === "jobPosts") return;
+
+        totalCount++;
+
+        if (status === "ALL") {
+            card.style.display = "block";
+            visibleCount++;
+        } else {
+            const cardStatus = card.querySelector("span").textContent.trim();
+            if (cardStatus === status) {
+                card.style.display = "block";
+                visibleCount++;
+            } else {
+                card.style.display = "none";
+            }
+        }
+    });
+
+    if (visibleCount === 0) {
+        emptyState.style.display = "flex";
+    } else {
+        emptyState.style.display = "none";
+    }
+
+    // Update job count
+    const countElement = document.getElementById("availableJobsCount");
+    if (status === "ALL") {
+        countElement.textContent = `${totalCount} ${totalCount > 1 ? "jobs" : "job"}`;
+    } else {
+        countElement.textContent = `${visibleCount} out of ${totalCount} ${totalCount > 1 ? "jobs" : "job"}`;
+    }
+}
+
+function updateJobStatus(jobId, newStatus) {
+    const jobPost = jobPosts.find(job => job.id === jobId);
+    if (!jobPost) return;
+
+    // Validate status
+    const VALID_STATUSES = ["NOT APPLIED", "INTERVIEW", "REJECTED"];
+    if (!VALID_STATUSES.includes(newStatus)) return;
+
+    jobPost.status = newStatus;
+
+    const cardId = "jobPosts" + jobId;
+    const card = document.getElementById(cardId);
+    if (!card) return;
+
+    const statusSpan = card.querySelector("span");
+    statusSpan.textContent = newStatus;
+
+    // Reset status badge classes
+    statusSpan.classList.remove("bg-gray-200", "text-gray-800", "bg-green-200", "text-green-800", "bg-red-200", "text-red-800");
+
+    if (newStatus === "INTERVIEW") {
+        statusSpan.classList.add("bg-green-200", "text-green-800");
+    } else if (newStatus === "REJECTED") {
+        statusSpan.classList.add("bg-red-200", "text-red-800");
+    } else {
+        statusSpan.classList.add("bg-gray-200", "text-gray-800");
+    }
+
+    // 🎬 TRIGGER ANIMATION
+    triggerCardAnimation(card, newStatus);
+
+    // Refresh counters
+    updateCounters();
+
+    // Re-apply current active tab filter
+    let activeTab = "ALL";
+    if (interviewTab.classList.contains("tab-active")) {
+        activeTab = "INTERVIEW";
+    } else if (rejectedTab.classList.contains("tab-active")) {
+        activeTab = "REJECTED";
+    }
+    filterJobs(activeTab);
+}
+
+// 🎬 New helper function: Trigger card animation
+function triggerCardAnimation(card, status) {
+    // Remove any existing animation classes first
+    card.classList.remove("card-status-change", "interview", "rejected");
+
+    // Force reflow to restart animation (magic trick ✨)
+    void card.offsetWidth;
+
+    // Add animation classes based on status
+    card.classList.add("card-status-change");
+    if (status === "INTERVIEW") {
+        card.classList.add("interview");
+    } else if (status === "REJECTED") {
+        card.classList.add("rejected");
+    }
+}
+
+function updateCounters() {
+    const totalCount = jobPosts.length;
+    const interviewCount = jobPosts.filter(job => job.status === "INTERVIEW").length;
+    const rejectedCountValue = jobPosts.filter(job => job.status === "REJECTED").length; // ← Renamed to avoid shadowing
+
+    totalJobCount.innerText = totalCount;
+    interviewedCount.innerText = interviewCount;
+    rejectedCount.innerText = rejectedCountValue; // ← Use renamed variable
+}
+
+function deleteJob(jobId) {
+    const cardId = "jobPosts" + jobId;
+    const card = document.getElementById(cardId);
+    if (card) {
+        card.remove();
+    }
+
+    const jobIndex = jobPosts.findIndex(job => job.id === jobId);
+    if (jobIndex > -1) {
+        jobPosts.splice(jobIndex, 1);
+    }
+
+    updateCounters();
+
+    let activeTab = "ALL";
+    if (interviewTab.classList.contains("tab-active")) {
+        activeTab = "INTERVIEW";
+    } else if (rejectedTab.classList.contains("tab-active")) {
+        activeTab = "REJECTED";
+    }
+    filterJobs(activeTab);
+}
+
+function loadJobs() {
+    for (let index in jobPosts) {
+        let jobPost = jobPosts[index];
+        let jobPostTemplate = document.getElementById("jobPosts");
+        let clonedJobPost = jobPostTemplate.cloneNode(true);
+
+        // Setup card
+        clonedJobPost.id = "jobPosts" + jobPost.id;
+        clonedJobPost.style.display = "block";
+
+        clonedJobPost.querySelector("h4").textContent = jobPost.company;
+        let paragraphs = clonedJobPost.querySelectorAll("p");
+        paragraphs[0].textContent = jobPost.position;
+        paragraphs[1].textContent = `${jobPost.location} • ${jobPost.type} • ${jobPost.salary}`;
+        paragraphs[2].textContent = jobPost.description;
+
+        // Setup status badge
+        let statusSpan = clonedJobPost.querySelector("span");
+        statusSpan.textContent = jobPost.status;
+
+        statusSpan.classList.remove("bg-gray-200", "text-gray-800");
+        if (jobPost.status === "INTERVIEW") {
+            statusSpan.classList.add("bg-green-200", "text-green-800");
+        } else if (jobPost.status === "REJECTED") {
+            statusSpan.classList.add("bg-red-200", "text-red-800");
+        } else {
+            statusSpan.classList.add("bg-gray-200", "text-gray-800");
+        }
+
+        // Attach event listeners to buttons
+        const buttons = clonedJobPost.querySelectorAll("button:not(.delete-btn)");
+
+        // Interview
+        buttons[0].addEventListener("click", function () {
+            updateJobStatus(jobPost.id, "INTERVIEW");
+        });
+
+        // Rejected
+        buttons[1].addEventListener("click", function () {
+            updateJobStatus(jobPost.id, "REJECTED");
+        });
+
+        // Delete
+        const deleteBtn = clonedJobPost.querySelector(".delete-btn");
+        deleteBtn.addEventListener("click", function () {
+            deleteJob(jobPost.id);
+        });
+
+        // Append
+        document.getElementById("jobPostParent").appendChild(clonedJobPost);
+    }
+}
+
+loadJobs();
+updateCounters();
+filterJobs("ALL");
